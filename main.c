@@ -13,7 +13,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 	char input[MAX_COMMAND_LENGTH];
 	pid_t child_pid;
 	char **commands;
-	char *env[] = {NULL};
+	extern  char **environ;
 
 	while (1)
 	{
@@ -33,7 +33,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 		}
 		if (child_pid == 0)
 		{
-			execve(commands[0], commands, env);
+			execve(commands[0], commands, environ);
 			perror(argv[0]);
 			exit(EXIT_FAILURE);
 		} else
