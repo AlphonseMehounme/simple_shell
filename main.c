@@ -13,7 +13,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 	char input[MAX_COMMAND_LENGTH];
 	pid_t child_pid;
 	char **commands;
-	char **env = {NULL};
+	char *env[] = {NULL};
 
 	while (1)
 	{

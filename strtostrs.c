@@ -21,7 +21,7 @@ char  **strtostrs(const char *str)
 	}
 	strncpy(copy_str, str, sizeof(copy_str));
 	copy_str[sizeof(copy_str) - 1] = '\0';
-	token = strtok(copy_str, " ");
+	token = strtok(copy_str, " \t\n");
 	while (token != NULL)
 	{
 		strs[i] = strdup(token);
@@ -37,7 +37,7 @@ char  **strtostrs(const char *str)
 			perror("realloc");
 			exit(EXIT_FAILURE);
 		}
-		token = strtok(NULL, " ");
+		token = strtok(NULL, " \t\n");
 	}
 	strs[i] = NULL;
 	return (strs);
