@@ -10,7 +10,7 @@ char  **strtostrs(const char *str)
 {
 	char **strs = NULL;
 	char *token;
-	char copy_str[MAX_COMMAND_LENGTH]
+	char copy_str[MAX_COMMAND_LENGTH];
 	int i = 0;
 
 	strs = (char **)malloc(sizeof(char *));
