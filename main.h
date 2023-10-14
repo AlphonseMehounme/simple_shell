@@ -11,5 +11,6 @@
 #define MAX_COMMAND_LENGTH 100
 
 char **strtostrs(const char *str);
+char *_which(char *str);
 
 #endif
