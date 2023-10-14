@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 
 /**
- * pathsearch - Search for a program in the path
+ * _which - Search for a program in the path
  * @str: Program to search for
  *
  * Return: Abolute path to the program
@@ -11,6 +11,7 @@ char *_which(char *str)
 {
 	char *tok;
 	char *newstr;
+	char copy_str[100];
 	struct stat st;
 
 	if (str != NULL)
@@ -20,7 +21,8 @@ char *_which(char *str)
 			return (str);
 		}
 		newstr = (char *)malloc(sizeof(char) * 50);
-		tok = strtok(getenv("PATH"), ":");
+		strcopy(copy_str, getenv("PATH"));
+		tok = strtok(getenv(copy_str, ":");
 		while (tok != NULL)
 		{
 			strcpy(newstr, tok);
