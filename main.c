@@ -14,43 +14,38 @@ int main(int __attribute__((unused)) ac, char *argv[])
 	pid_t child_pid;
 	char **commands;
 	char *fullcmd;
-	extern  char **environ;
 
 	while (1)
-	{
-		printf("#cisfun$ ");
-		fgets(input, sizeof(input), stdin);
-		if (feof(stdin))
+	{	printf("#cisfun$ ");
+		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
 			printf("\n");
 			break;
 		}
 		commands = strtostrs(input);
-		fullcmd = _which(commands[0]);
-		if (fullcmd != NULL)
+		if (commands[0] != NULL)
 		{
-			child_pid = fork();
-			if (child_pid == -1)
+			fullcmd = _which(commands[0]);
+			if (fullcmd != NULL)
 			{
-				perror("fork");
-				exit(EXIT_FAILURE);
-			}
-			if (child_pid == 0)
-			{
-				execve(fullcmd, commands, environ);
-				perror(argv[0]);
-				exit(EXIT_FAILURE);
+				child_pid = fork();
+				if (child_pid == -1)
+				{
+					perror("fork");
+					exit(EXIT_FAILURE);
+				}
+				if (child_pid == 0)
+				{
+					execve(fullcmd, commands, environ);
+					perror(argv[0]);
+					exit(EXIT_FAILURE);
+				} else
+					waitpid(child_pid, &status, 0);
 			} else
-			{
-				waitpid(child_pid, &status, 0);
-			}
-		}
-		free(fullcmd);
-		for (i = 0; commands[i] != NULL; i++)
-		{
-			free(commands[i]);
-		}
-		free(commands);
+				perror(argv[0]);
+			for (i = 0; commands[i] != NULL; i++)
+				free(commands[i]);
+			free(commands);
 	}
 	return (0);
 }
