@@ -21,8 +21,8 @@ char *_which(char *str)
 			return (str);
 		}
 		newstr = (char *)malloc(sizeof(char) * 50);
-		strcopy(copy_str, getenv("PATH"));
-		tok = strtok(getenv(copy_str, ":");
+		strcpy(copy_str, getenv("PATH"));
+		tok = strtok(copy_str, ":");
 		while (tok != NULL)
 		{
 			strcpy(newstr, tok);

@@ -36,7 +36,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 				}
 				if (child_pid == 0)
 				{
-					execve(fullcmd, commands, environ);
+					execve(fullcmd, commands, NULL);
 					perror(argv[0]);
 					exit(EXIT_FAILURE);
 				} else
@@ -46,6 +46,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 			for (i = 0; commands[i] != NULL; i++)
 				free(commands[i]);
 			free(commands);
+		}
 	}
 	return (0);
 }

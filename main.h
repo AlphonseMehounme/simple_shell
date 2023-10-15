@@ -9,7 +9,6 @@
 #include <sys/wait.h>
 
 #define MAX_COMMAND_LENGTH 100
-#define extern char** environ
 char **strtostrs(const char *str);
 char *_which(char *str);
 
