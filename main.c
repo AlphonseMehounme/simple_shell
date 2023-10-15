@@ -19,9 +19,11 @@ int main(int __attribute__((unused)) ac, char *argv[])
 	{	printf("#cisfun$ ");
 		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
+			free(fullcmd);
 			printf("\n");
 			break;
 		}
+
 		commands = strtostrs(input);
 		if (commands[0] != NULL)
 		{
@@ -40,13 +42,18 @@ int main(int __attribute__((unused)) ac, char *argv[])
 					perror(argv[0]);
 					exit(EXIT_FAILURE);
 				} else
+				{
 					waitpid(child_pid, &status, 0);
+				}
 			} else
+			{
+				free(fullcmd);
 				perror(argv[0]);
-			for (i = 0; commands[i] != NULL; i++)
-				free(commands[i]);
-			free(commands);
+			}
 		}
+		for (i = 0; commands[i] != NULL; i++)
+			free(commands[i]);
+		free(commands);
 	}
 	return (0);
 }

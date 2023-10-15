@@ -34,6 +34,7 @@ char *_which(char *str)
 			}
 			tok = strtok(NULL, ":");
 		}
+		free(newstr);
 	}
 	return (NULL);
 }

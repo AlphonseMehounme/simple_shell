@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 #define MAX_COMMAND_LENGTH 100
 char **strtostrs(const char *str);
