@@ -9,9 +9,7 @@
  */
 int main(int __attribute__((unused)) ac, char *argv[])
 {
-	int status;
 	char input[MAX_COMMAND_LENGTH], *fullcmd, **commands;
-	pid_t child_pid;
 
 	while (1)
 	{	printf("#cisfun$ ");
@@ -38,23 +36,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 				}
 			}
 			fullcmd = _which(commands[0]);
-			if (fullcmd != NULL)
-			{
-				child_pid = fork();
-				if (child_pid == -1)
-				{
-					perror("fork");
-					exit(EXIT_FAILURE);
-				}
-				if (child_pid == 0)
-				{
-					execve(fullcmd, commands, NULL);
-					perror(argv[0]);
-					exit(EXIT_FAILURE);
-				} else
-					waitpid(child_pid, &status, 0);
-			} else
-				perror(argv[0]);
+			ownexecve(fullcmd, commands, argv[0]);
 		}
 		freecmd(commands);
 	}
