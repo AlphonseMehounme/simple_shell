@@ -12,18 +12,15 @@ int main(int __attribute__((unused)) ac, char *argv[])
 	int status, i;
 	char input[MAX_COMMAND_LENGTH];
 	pid_t child_pid;
-	char **commands;
-	char *fullcmd;
+	char **commands, *fullcmd;
 
 	while (1)
 	{	printf("#cisfun$ ");
 		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
-			free(fullcmd);
 			printf("\n");
 			break;
 		}
-
 		commands = strtostrs(input);
 		if (commands[0] != NULL)
 		{
@@ -42,14 +39,9 @@ int main(int __attribute__((unused)) ac, char *argv[])
 					perror(argv[0]);
 					exit(EXIT_FAILURE);
 				} else
-				{
 					waitpid(child_pid, &status, 0);
-				}
 			} else
-			{
-				free(fullcmd);
 				perror(argv[0]);
-			}
 		}
 		for (i = 0; commands[i] != NULL; i++)
 			free(commands[i]);
