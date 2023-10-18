@@ -37,6 +37,8 @@ int main(int __attribute__((unused)) ac, char *argv[])
 			}
 			fullcmd = _which(commands[0]);
 			ownexecve(fullcmd, commands, argv[0]);
+			if (fullcmd != NULL && fullcmd != commands[0])
+				free(fullcmd);
 		}
 		freecmd(commands);
 	}
