@@ -7,7 +7,7 @@
  * @argvo: Fist argument of main
  */
 
-void ownexecve(char *cmd, char commands, char *argvo)
+void ownexecve(char *cmd, char **commands, char *argvo)
 {
 	pid_t child_pid;
 	int status;
@@ -18,13 +18,13 @@ void ownexecve(char *cmd, char commands, char *argvo)
 		if (child_pid == -1)
 		{
 			perror("fork");
-			exit(EXIT_FAILLURE);
+			exit(EXIT_FAILURE);
 		}
 		if (child_pid == 0)
 		{
 			execve(cmd, commands, NULL);
 			perror(argvo);
-			exit(EXIT_FAILLURE);
+			exit(EXIT_FAILURE);
 		}
 		else
 		{
