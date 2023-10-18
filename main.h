@@ -15,5 +15,7 @@ extern char **environ;
 char **strtostrs(const char *str);
 char *_which(char *str);
 void env(void);
+void _exit(int n);
+void freecmd(char **strar);
 
 #endif

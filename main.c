@@ -9,10 +9,9 @@
  */
 int main(int __attribute__((unused)) ac, char *argv[])
 {
-	int status, i;
-	char input[MAX_COMMAND_LENGTH];
+	int status;
+	char input[MAX_COMMAND_LENGTH], *fullcmd, **commands;
 	pid_t child_pid;
-	char **commands, *fullcmd;
 
 	while (1)
 	{	printf("#cisfun$ ");
@@ -24,6 +23,20 @@ int main(int __attribute__((unused)) ac, char *argv[])
 		commands = strtostrs(input);
 		if (commands[0] != NULL)
 		{
+			if (strcmp(commands[0], "env") == 0 || strcmp(commands[0], "exit") == 0)
+			{
+				if (strcmp(commands[0], "env") == 0)
+				{
+					env();
+					freecmd(commands);
+					continue;
+				}
+				if (strcmp(commands[0], "exit") == 0)
+				{
+					freecmd(commands);
+					exit(0);
+				}
+			}
 			fullcmd = _which(commands[0]);
 			if (fullcmd != NULL)
 			{
@@ -43,9 +56,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 			} else
 				perror(argv[0]);
 		}
-		for (i = 0; commands[i] != NULL; i++)
-			free(commands[i]);
-		free(commands);
+		freecmd(commands);
 	}
 	return (0);
 }
