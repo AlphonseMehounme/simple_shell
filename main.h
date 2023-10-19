@@ -18,5 +18,6 @@ void env(void);
 void _exit(int n);
 void freecmd(char **strar);
 void ownexecve(char *cmd, char **commands, char *argvo);
+void noninteract(char *argvo);
 
 #endif

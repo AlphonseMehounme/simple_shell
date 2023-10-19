@@ -1,25 +1,19 @@
 #include "main.h"
 
 /**
- * main - A simple shell
- * @ac: Number of arguments
- * @argv: Array of arguments
+ * noninteract - Non interactive mode of the shell
  *
  * Return: Always 0
  */
-int main(int __attribute__((unused)) ac, char *argv[])
+void noninteract(char *argvo)
 {
-	char input[MAX_COMMAND_LENGTH], *fullcmd, **commands;
+	char *input = NULL, *fullcmd, **commands;
+	size_t n = 0;
 
-	while (1)
+	if (!(isatty(STDIN_FILENO)))
 	{
-		noninteract(argv[0]);
-		printf(" ($) ");
-		if (fgets(input, sizeof(input), stdin) == NULL)
-		{
-			printf("\n");
-			break;
-		}
+	while (getline(&input, &n, stdin))
+	{
 		commands = strtostrs(input);
 		if (commands[0] != NULL)
 		{
@@ -38,11 +32,12 @@ int main(int __attribute__((unused)) ac, char *argv[])
 				}
 			}
 			fullcmd = _which(commands[0]);
-			ownexecve(fullcmd, commands, argv[0]);
+			ownexecve(fullcmd, commands, argvo);
 			if (fullcmd != NULL && fullcmd != commands[0])
 				free(fullcmd);
 		}
 		freecmd(commands);
+		exit(0);
 	}
-	return (0);
+	}
 }
