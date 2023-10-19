@@ -22,7 +22,7 @@ void ownexecve(char *cmd, char **commands, char *argvo)
 		}
 		if (child_pid == 0)
 		{
-			execve(cmd, commands, NULL);
+			execve(cmd, commands, environ);
 			perror(argvo);
 			exit(EXIT_FAILURE);
 		}
