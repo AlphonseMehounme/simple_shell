@@ -29,7 +29,7 @@ void rm_newline(char *input)
 
 void rm_comment(char *input)
 {
-	in i = 0;
+	int i = 0;
 
 	if (input[i] == '#')
 		input[i] = '\0';
