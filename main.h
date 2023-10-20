@@ -20,5 +20,7 @@ void freecmd(char **strar);
 void ownexecve(char *cmd, char **commands, char *argvo);
 void noninteract(char *argvo);
 void print(char *str, int stream);
+void rm_newline(char *input);
+void rm_comment(char *input);
 
 #endif

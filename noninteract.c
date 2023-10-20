@@ -15,6 +15,8 @@ void noninteract(char *argvo)
 	{
 	while (getline(&input, &n, stdin) != -1)
 	{
+		rm_newline(input);
+		rm_comment(input);
 		commands = strtostrs(input, ";");
 		for (i = 0; commands[i] != NULL; i++)
 		{

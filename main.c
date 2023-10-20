@@ -22,6 +22,8 @@ int main(int __attribute__((unused)) ac, char *argv[])
 			free(input);
 			exit(status);
 		}
+		rm_newline(input);
+		rm_comment(input);
 		commands = strtostrs(input, ";");
 		for (i = 0; commands[i] != NULL; i++)
 		{
