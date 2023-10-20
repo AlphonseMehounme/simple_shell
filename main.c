@@ -49,5 +49,6 @@ int main(int __attribute__((unused)) ac, char *argv[])
 		}
 		freecmd(commands);
 	}
-	return (0);
+	free(input);
+	return (status);
 }

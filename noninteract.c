@@ -9,11 +9,11 @@ void noninteract(char *argvo)
 {
 	char *input = NULL, *fullcmd, **commands, **currcmd;
 	size_t n = 0;
-	int i;
+	int i, status = 0;
 
 	if (!(isatty(STDIN_FILENO)))
 	{
-	while (getline(&input, &n, stdin))
+	while (getline(&input, &n, stdin) != -1)
 	{
 		commands = strtostrs(input, ";");
 		for (i = 0; commands[i] != NULL; i++)
@@ -24,19 +24,16 @@ void noninteract(char *argvo)
 				free(currcmd);
 				break;
 			}
-			if (strcmp(currcmd[0], "env") == 0 || strcmp(currcmd[0], "exit") == 0)
+			if (strcmp(currcmd[0], "env") == 0)
 			{
-				if (strcmp(currcmd[0], "env") == 0)
-				{
-					env();
-					freecmd(currcmd);
-					continue;
-				}
-				if (strcmp(currcmd[0], "exit") == 0)
-				{
-					freecmd(currcmd);
-					exit(2);
-				}
+				env();
+				freecmd(currcmd);
+				continue;
+			}
+			if (strcmp(currcmd[0], "exit") == 0)
+			{
+				freecmd(currcmd);
+				exit(2);
 			}
 			fullcmd = _which(currcmd[0]);
 			ownexecve(fullcmd, currcmd, argvo);
@@ -44,7 +41,8 @@ void noninteract(char *argvo)
 				free(fullcmd);
 		}
 		freecmd(commands);
-		exit(0);
 	}
+	free(input);
+	exit(status);
 	}
 }
