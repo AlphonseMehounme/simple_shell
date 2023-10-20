@@ -8,6 +8,6 @@ void ctrlc(int sig)
 {
 	if (sig == SIGINT)
 	{
-		print("\n($) ", STDIN_FILENO);
+		print("\n ($) ", STDIN_FILENO);
 	}
 }
