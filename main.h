@@ -22,5 +22,6 @@ void noninteract(char *argvo);
 void print(char *str, int stream);
 void rm_newline(char *input);
 void rm_comment(char *input);
+int execute_builtin(char **command, char *argvo);
 
 #endif
