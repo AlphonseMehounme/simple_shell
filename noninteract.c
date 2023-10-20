@@ -27,18 +27,19 @@ void noninteract(char *argvo)
 			if (strcmp(currcmd[0], "env") == 0)
 			{
 				env();
-				freecmd(currcmd);
+				freecmd(commands);
 				continue;
 			}
 			if (strcmp(currcmd[0], "exit") == 0)
 			{
-				freecmd(currcmd);
-				exit(2);
+				freecmd(commands);
+				exit(0);
 			}
 			fullcmd = _which(currcmd[0]);
 			ownexecve(fullcmd, currcmd, argvo);
-			if (fullcmd != NULL && fullcmd != commands[0])
+			if (fullcmd != NULL && fullcmd != currcmd[0])
 				free(fullcmd);
+			free(currcmd);
 		}
 		freecmd(commands);
 	}
