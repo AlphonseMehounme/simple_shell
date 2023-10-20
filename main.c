@@ -39,9 +39,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 				fullcmd = _which(currcmd[0]);
 				ownexecve(fullcmd, currcmd, argv[0]);
 				if (fullcmd != NULL && fullcmd != currcmd[0])
-				{
 					free(fullcmd);
-				}
 			} else
 				continue;
 			freecmd(currcmd);

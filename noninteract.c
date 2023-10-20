@@ -26,23 +26,14 @@ void noninteract(char *argvo)
 				free(currcmd);
 				break;
 			}
-			if (strcmp(currcmd[0], "env") == 0)
+			if (execute_builtin(currcmd, commands, input) == 1)
 			{
-				env();
-				freecmd(currcmd);
+				fullcmd = _which(currcmd[0]);
+				ownexecve(fullcmd, currcmd, argvo);
+				if (fullcmd != NULL && fullcmd != currcmd[0])
+					free(fullcmd);
+			} else
 				continue;
-			}
-			if (strcmp(currcmd[0], "exit") == 0)
-			{
-				freecmd(currcmd);
-				freecmd(commands);
-				free(input);
-				exit(2);
-			}
-			fullcmd = _which(currcmd[0]);
-			ownexecve(fullcmd, currcmd, argvo);
-			if (fullcmd != NULL && fullcmd != currcmd[0])
-				free(fullcmd);
 			freecmd(currcmd);
 		}
 		freecmd(commands);
