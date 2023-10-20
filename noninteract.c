@@ -37,7 +37,7 @@ void noninteract(char *argvo)
 			}
 			fullcmd = _which(currcmd[0]);
 			ownexecve(fullcmd, currcmd, argvo);
-			if (fullcmd != NULL && fullcmd != currcmd[0])
+			if (fullcmd != NULL && fullcmd != commands[0])
 				free(fullcmd);
 			free(currcmd);
 		}
