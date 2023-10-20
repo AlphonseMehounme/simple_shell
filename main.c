@@ -13,6 +13,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 	size_t n;
 	int status = 0, i;
 
+	signal(SIGINT, ctrlc);
 	while (1)
 	{
 		noninteract(argv[0]);
