@@ -9,14 +9,14 @@
  */
 int main(int __attribute__((unused)) ac, char *argv[])
 {
-	char *input, *fullcmd, **commands, **currcmd;
+	char *input = NULL, *fullcmd, **commands, **currcmd;
 	size_t n;
 	int status = 0, i;
 
 	while (1)
 	{
 		noninteract(argv[0]);
-		print(" ($) ", STDIN_FILENO);
+		print(" ($) ", STDOUT_FILENO);
 		if (getline(&input, &n, stdin) == -1)
 		{
 			free(input);
