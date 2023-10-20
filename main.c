@@ -26,33 +26,6 @@ int main(int __attribute__((unused)) ac, char *argv[])
 		rm_newline(input);
 		rm_comment(input);
 		commands = strtostrs(input, ";");
-		/*for (i = 0; commands[i] != NULL; i++)
-		{
-			currcmd = strtostrs(commands[i], " \t\n");
-			if (currcmd[0] == NULL)
-			{
-				free(currcmd);
-				break;
-			}
-			if (strcmp(currcmd[0], "env") == 0)
-			{
-				env();
-				freecmd(currcmd);
-				continue;
-			}
-			if (strcmp(currcmd[0], "exit") == 0)
-			{
-				freecmd(currcmd);
-				freecmd(commands);
-				free(input);
-				exit(2);
-			}
-			fullcmd = _which(currcmd[0]);
-			ownexecve(fullcmd, currcmd, argv[0]);
-			if (fullcmd != NULL && fullcmd != currcmd[0])
-				free(fullcmd);
-			freecmd(currcmd);
-		}*/
 		for (i = 0; commands[i] != NULL; i++)
 		{
 			currcmd = strtostrs(commands[i], " \t\n");
@@ -61,7 +34,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 				free(currcmd);
 				break;
 			}
-			if (execute_builtin(currcmd, input) == 1)
+			if (execute_builtin(currcmd, commands, input) == 1)
 			{
 				fullcmd = _which(currcmd[0]);
 				ownexecve(fullcmd, currcmd, argv[0]);
@@ -69,7 +42,8 @@ int main(int __attribute__((unused)) ac, char *argv[])
 				{
 					free(fullcmd);
 				}
-			}
+			} else
+				continue;
 			freecmd(currcmd);
 		}
 		freecmd(commands);
