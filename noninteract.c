@@ -2,37 +2,44 @@
 
 /**
  * noninteract - Non interactive mode of the shell
+ * @argvo: First argument of main
  *
- * Return: Always 0
  */
 void noninteract(char *argvo)
 {
-	char *input = NULL, *fullcmd, **commands;
+	char *input = NULL, *fullcmd, **commands, **currcmd;
 	size_t n = 0;
+	int i;
 
 	if (!(isatty(STDIN_FILENO)))
 	{
 	while (getline(&input, &n, stdin))
 	{
-		commands = strtostrs(input);
-		if (commands[0] != NULL)
+		commands = strtostrs(input, ";");
+		for (i = 0; commands[i] != NULL; i++)
 		{
-			if (strcmp(commands[0], "env") == 0 || strcmp(commands[0], "exit") == 0)
+			currcmd = strtostrs(commands[i], " \t\n");
+			if (currcmd[0] == NULL)
 			{
-				if (strcmp(commands[0], "env") == 0)
+				free(currcmd);
+				break;
+			}
+			if (strcmp(currcmd[0], "env") == 0 || strcmp(currcmd[0], "exit") == 0)
+			{
+				if (strcmp(currcmd[0], "env") == 0)
 				{
 					env();
-					freecmd(commands);
+					freecmd(currcmd);
 					continue;
 				}
-				if (strcmp(commands[0], "exit") == 0)
+				if (strcmp(currcmd[0], "exit") == 0)
 				{
-					freecmd(commands);
-					exit(0);
+					freecmd(currcmd);
+					exit(2);
 				}
 			}
-			fullcmd = _which(commands[0]);
-			ownexecve(fullcmd, commands, argvo);
+			fullcmd = _which(currcmd[0]);
+			ownexecve(fullcmd, currcmd, argvo);
 			if (fullcmd != NULL && fullcmd != commands[0])
 				free(fullcmd);
 		}

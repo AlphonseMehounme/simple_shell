@@ -3,10 +3,11 @@
 /**
  * strtostrs - String to array of strings
  * @str: Input string
+ * @delim: Delimitor
  *
  * Return: Array of strings
  */
-char  **strtostrs(const char *str)
+char  **strtostrs(const char *str, char *delim)
 {
 	char **strs = NULL;
 	char *token;
@@ -21,7 +22,7 @@ char  **strtostrs(const char *str)
 	}
 	strncpy(copy_str, str, sizeof(copy_str));
 	copy_str[sizeof(copy_str) - 1] = '\0';
-	token = strtok(copy_str, " \t\n");
+	token = strtok(copy_str, delim);
 	while (token != NULL)
 	{
 		strs[i] = strdup(token);
@@ -37,7 +38,7 @@ char  **strtostrs(const char *str)
 			perror("realloc");
 			exit(EXIT_FAILURE);
 		}
-		token = strtok(NULL, " \t\n");
+		token = strtok(NULL, delim);
 	}
 	strs[i] = NULL;
 	return (strs);

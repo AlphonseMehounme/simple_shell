@@ -22,17 +22,24 @@ void ownexecve(char *cmd, char **commands, char *argvo)
 		}
 		if (child_pid == 0)
 		{
-			execve(cmd, commands, environ);
-			perror(argvo);
-			exit(EXIT_FAILURE);
+			if (execve(cmd, commands, environ) == -1)
+			{
+				perror(getenv("PWD"));
+				exit(2);
+			}
 		}
 		else
 		{
 			waitpid(child_pid, &status, 0);
+			status >>= 8;
 		}
 	}
 	else
 	{
-		perror(argvo);
+		print(argvo, STDERR_FILENO);
+		print(": 1: ", STDERR_FILENO);
+		print(commands[0], STDERR_FILENO);
+		print(": not found\n", STDERR_FILENO);
+		status = 127;
 	}
 }

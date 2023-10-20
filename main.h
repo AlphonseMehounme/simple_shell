@@ -12,7 +12,7 @@
 #define MAX_COMMAND_LENGTH 100
 
 extern char **environ;
-char **strtostrs(const char *str);
+char **strtostrs(const char *str, char *delim);
 char *_which(char *str);
 void env(void);
 void _exit(int n);
