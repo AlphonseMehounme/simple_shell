@@ -14,7 +14,7 @@ int main(int __attribute__((unused)) ac, char *argv[])
 	while (1)
 	{
 		noninteract(argv[0]);
-		printf(" ($) ");
+		print(" ($) ", STDIN_FILENO);
 		if (fgets(input, sizeof(input), stdin) == NULL)
 		{
 			printf("\n");
