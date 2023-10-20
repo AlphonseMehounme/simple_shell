@@ -42,6 +42,8 @@ int main(int __attribute__((unused)) ac, char *argv[])
 			if (strcmp(currcmd[0], "exit") == 0)
 			{
 				freecmd(currcmd);
+				freecmd(commands);
+				free(input);
 				exit(2);
 			}
 			fullcmd = _which(currcmd[0]);
